@@ -10,8 +10,8 @@ ReactDOM.render(
 	document.getElementById('root')
 );
 
-
-{/*
+{
+	/*
 
 	CV Application... application
 
@@ -25,4 +25,22 @@ ReactDOM.render(
 	 - with edit button that formats those sections to edit in-line
 	
 
-*/}
+	 Top half:
+
+	- Personal info form section
+	 	- 
+	- Work experience
+		- Add section
+		- Delete section
+	- Education experience
+		- Add section
+		- Delete section
+	- Skills and certs
+		- Add section
+		- Delete section
+	-  Submit button
+
+	- Preview section
+
+*/
+}
