@@ -1,23 +1,75 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f6fcfd;
+	color: #181c20;
+}
+
+h3 {
+	font-size: 1.7rem;
+	margin: 20px 0;
+}
+
+button {
+	background-color: #545363;
+	color: white;
+	border: none;
+	font-size: 0.9rem;
+	padding: 5px 12px;
+	margin: 10px 0px 10px 0px;
+}
+
+input {
+	width: 100%;
+}
+
 .container {
-	background-color: blue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-.form-container {
-	background-color: teal;
+.title {
+	text-align: center;
+	background-color: #fbfdfd;
+	border: 2px solid #5d707f;
+	border-radius: 3px;
+	font-size: 2.5rem;
+	padding: 10px 30px;
 }
 
-.personal-info {
-	color: purple;
+.page-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
-.work-exp {
-	color: yellow;
-}
-
-.education {
-	color: green;
-}
-
+.form-container,
 .output-field {
-	color: red;
+	background-color: #fbfdfd;
+	border: 2px solid #5d707f;
+	border-radius: 3px;
+	padding: 0px 20px;
+	margin: 20px;
+	width: 350px;
+}
+
+.personal-info > p {
+	margin: 0px;
+}
+
+.work-map > * {
+	margin: 3px 0px;
+}
+
+.edu-map > * {
+	margin: 3px 0px;
+}
+
+.personal-info,
+.work-map,
+.edu-map {
+	padding: 10px 0;
+	border-bottom: 2px solid #5d707f;
 }

@@ -70,34 +70,31 @@ function Main() {
 
 	return (
 		<div className="container">
-			<div className="form-container">
-				<form onSubmit={handleSubmit}>
-					<div className="personal-info">
+			<h1 className="title">CV Application Creator</h1>
+			<div className="page-container">
+				<div className="form-container">
+					<form onSubmit={handleSubmit}>
 						<h3>Personal Info:</h3>
-						<label>
-							First name:
+						<div className="personal-info">
+							<p>First name:</p>
 							<input
 								type="text"
 								name="firstName"
-								placeholder="First name"
+								placeholder="Bob"
 								value={personalInfo.firstName}
 								onChange={event => handlePersonalInfo(event)}
 							/>
-						</label>
-						<br />
-						<label>
-							Last name:
+							<br />
+							<p>Last name:</p>
 							<input
 								type="text"
 								name="lastName"
-								placeholder="Last Name"
+								placeholder="Jobseeker"
 								value={personalInfo.lastName}
 								onChange={event => handlePersonalInfo(event)}
 							/>
-						</label>
-						<br />
-						<label>
-							Email:
+							<br />
+							<p>Email:</p>
 							<input
 								type="text"
 								name="email"
@@ -105,59 +102,45 @@ function Main() {
 								value={personalInfo.email}
 								onChange={event => handlePersonalInfo(event)}
 							/>
-						</label>
-						<br />
-						<label>
-							Phone number:
+							<br />
+							<p>Phone number:</p>
 							<input
 								type="text"
 								name="phone"
-								placeholder="1(123) 456-7890"
+								placeholder="1(701) 123-4567"
 								value={personalInfo.phone}
 								onChange={event => handlePersonalInfo(event)}
 							/>
-						</label>
-						<hr />
-					</div>
-					<div className="work-exp">
-						<h3>Work Experience:</h3>
-						{workInfos.map((workInfo, index) => (
-							<div key={index}>
-								<label>
-									Company name:
+						</div>
+						<div className="work-exp">
+							<h3>Work Experience:</h3>
+							{workInfos.map((workInfo, index) => (
+								<div className="work-map" key={index}>
+									<p>Company name:</p>
 									<input
 										type="text"
 										name="companyName"
-										placeholder="Company Name"
+										placeholder="McCompany"
 										value={workInfo.companyName}
 										onChange={event => handleWorkInfo(event, index)}
 									/>
-								</label>
-								<br />
-								<label>
-									Position name:
+									<p>Position name:</p>
 									<input
 										type="text"
 										name="position"
-										placeholder="Position Name"
+										placeholder="Excellent worker"
 										value={workInfo.position}
 										onChange={event => handleWorkInfo(event, index)}
 									/>
-								</label>
-								<br />
-								<label>
-									Job tasks:
+									<p>Job tasks:</p>
 									<input
 										type="text"
 										name="jobTasks"
-										placeholder="Company Name"
+										placeholder="Being amazing"
 										value={workInfo.jobTasks}
 										onChange={event => handleWorkInfo(event, index)}
 									/>
-								</label>
-								<br />
-								<label>
-									Start and end date:
+									<p>Start and end date:</p>
 									<input
 										type="text"
 										name="date"
@@ -165,94 +148,85 @@ function Main() {
 										value={workInfo.date}
 										onChange={event => handleWorkInfo(event, index)}
 									/>
-								</label>
-								{index === 0 ? null : (
-									<button onClick={() => removeWorkSection(index)}>
-										Remove
-									</button>
-								)}
-								<hr />
-							</div>
-						))}
-						<button onClick={() => addWorkSection()}>Add</button>
-					</div>
-					<br />
-					<div className="education">
-						<h3>Education:</h3>
-						{educations.map((edu, index) => (
-							<div key={index}>
-								<label>
-									College name:
+									<br />
+									{index === 0 ? null : (
+										<button onClick={() => removeWorkSection(index)}>
+											Remove
+										</button>
+									)}
+								</div>
+							))}
+							<button onClick={() => addWorkSection()}>Add</button>
+						</div>
+						<div className="education">
+							<h3>Education:</h3>
+							{educations.map((edu, index) => (
+								<div className="edu-map" key={index}>
+									<p>College name:</p>
 									<input
 										type="text"
 										name="college"
-										placeholder="College name"
+										placeholder="University of the Web"
 										value={edu.college}
 										onChange={event => handleEduInfo(event, index)}
 									/>
-								</label>
-								<br />
-								<label>
-									Subjects studied:
+									<p>Subjects studied:</p>
 									<input
 										type="text"
 										name="study"
-										placeholder="Subjects studied"
+										placeholder="Computer Science"
 										value={edu.study}
 										onChange={event => handleEduInfo(event, index)}
 									/>
-								</label>
-								<br />
-								<label>
-									Years studied:
+									<p>Years studied:</p>
 									<input
 										type="number"
 										name="years"
-										placeholder="Number of years"
+										placeholder="6"
 										value={edu.years}
 										onChange={event => handleEduInfo(event, index)}
 									/>
-								</label>
-								{index === 0 ? null : (
-									<button onClick={() => removeEduSection(index)}>
-										Remove
-									</button>
-								)}
-								<hr />
-							</div>
-						))}
-						<hr />
-						<button onClick={() => addEduSection()}>Add</button>
-					</div>
-					<hr />
-					<button type="submit">Generate</button>
-				</form>
-			</div>
+									<br />
+									{index === 0 ? null : (
+										<button onClick={() => removeEduSection(index)}>
+											Remove
+										</button>
+									)}
+								</div>
+							))}
+							<button onClick={() => addEduSection()}>Add</button>
+						</div>
+						<button type="submit">Generate</button>
+					</form>
+				</div>
 
-			<div className="output-field">
-				<Personal
-					firstName={personalInfo.firstName ? personalInfo.firstName : 'Bob'}
-					lastName={personalInfo.lastName ? personalInfo.lastName : 'Jobseeker'}
-					email={personalInfo.email ? personalInfo.email : 'email@email.com'}
-					phone={personalInfo.phone ? personalInfo.phone : '1(702)123-4567'}
-				/>
-				<h2>Work Experience:</h2>
-				{workInfos.map(work => (
-					<WorkExp
-						companyName={work.companyName ? work.companyName : 'McCompany'}
-						position={work.position ? work.position : 'Excellent worker'}
-						jobTasks={work.jobTasks ? work.jobTasks : 'Being amazing'}
-						date={work.date ? work.date : 'Aug 2018 - Current'}
+				<div className="output-field">
+					<Personal
+						firstName={personalInfo.firstName ? personalInfo.firstName : 'Bob'}
+						lastName={
+							personalInfo.lastName ? personalInfo.lastName : 'Jobseeker'
+						}
+						email={personalInfo.email ? personalInfo.email : 'email@email.com'}
+						phone={personalInfo.phone ? personalInfo.phone : '1(702)123-4567'}
 					/>
-				))}
-				<h2>Education:</h2>
-				{educations.map(edu => (
-					<Education
-						college={edu.college ? edu.college : 'University of the Web'}
-						study={edu.study ? edu.study : 'Computer Science'}
-						years={edu.years ? edu.years : '6'}
-					/>
-				))}
+					<h2>Work Experience:</h2>
+					{workInfos.map(work => (
+						<WorkExp
+							companyName={work.companyName ? work.companyName : 'McCompany'}
+							position={work.position ? work.position : 'Excellent worker'}
+							jobTasks={work.jobTasks ? work.jobTasks : 'Being amazing'}
+							date={work.date ? work.date : 'Aug 2018 - Current'}
+						/>
+					))}
+					<h2>Education:</h2>
+					{educations.map(edu => (
+						<Education
+							college={edu.college ? edu.college : 'University of the Web'}
+							study={edu.study ? edu.study : 'Computer Science'}
+							years={edu.years ? edu.years : '6'}
+						/>
+					))}
+				</div>
 			</div>
 		</div>
 	);
