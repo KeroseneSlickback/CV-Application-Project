@@ -1,245 +1,261 @@
-import React, { Component } from 'react';
-import Personal from './Personal'
-import WorkExp from './WorkExp'
-import Education from './Education'
+import React, { Component, useState } from 'react';
+import Personal from './Personal';
+import WorkExp from './WorkExp';
+import Education from './Education';
+import '../styles/myStyles.css';
 
-// A "Add" button that adds an object to an array
-// Based from array length, generate sections to add in both form and display
+function Main() {
+	const [personalInfo, setPersonalInfo] = useState({
+		firstName: '',
+		lastName: '',
+		email: '',
+		phone: '',
+	});
+	const [workInfos, setWorkInfo] = useState([
+		{ companyName: '', position: '', jobTasks: '', date: '' },
+	]);
 
-class Main extends Component {
-	constructor() {
-		super();
-		this.state = {
-			firstName: '',
-			lastName: '',
-			email: '',
-			phone: '',
-			work: [
-				{
-					companyName: '',
-					position: '',
-					jobTasks: '',
-					date: '',
-				}
-			],
-			education: [],
-			college: '',
-			study: '',
-			years: '',
-			isSubmitted: false,
-		};
-		this.handleInfo = this.handleInfo.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this)
-		this.addSection = this.addSection.bind(this)
-		this.removeSection = this.removeSection.bind(this)
-	}
+	const [educations, setEducation] = useState([
+		{ college: '', study: '', years: '' },
+	]);
 
-	handleInfo(e) {
-		const { name, value } = e.target;
-		this.setState({ [name]: value })
-		console.log(e);
-		// if ([name] === 'companyName' || 'position' || 'jobTasks' || 'date') {
+	const handleSubmit = e => {
+		e.preventDefault();
+		console.log();
+	};
 
-		// 	if (this.state.work.length === 0) {
-		// 		this.setState({})
-		// 	}
+	const handlePersonalInfo = event => {
+		const { name, value } = event.target;
+		setPersonalInfo(previous => {
+			return { ...previous, [name]: value };
+		});
+		console.log(personalInfo);
+	};
 
-		// 	this.setState({work: this.state.work.concat([
-		// 	{
-		// 		section: this.state.work.length,
-		// 		companyName: companyName.value,
-		// 		position: position.value,
-		// 		jobTasks: jobTasks.value,
-		// 		date: date.value,
+	const handleWorkInfo = (event, index) => {
+		const values = [...workInfos];
+		values[index][event.target.name] = event.target.value;
+		setWorkInfo(values);
+		console.log(workInfos);
+	};
 
-		// 	}])
-		// })
-		// } else {
-		// }
-	}
+	const handleEduInfo = (event, index) => {
+		const values = [...educations];
+		values[index][event.target.name] = event.target.value;
+		setEducation(values);
+	};
 
-	handleSubmit(e) {
-		e.preventDefault()
-		this.setState({isSubmitted: !this.state.isSubmitted})
-		console.log(this.state.isSubmitted)
-	}
+	const addWorkSection = e => {
+		setWorkInfo([
+			...workInfos,
+			{ companyName: '', position: '', jobTasks: '', date: '' },
+		]);
+	};
 
-	addSection(e) {
-		const { name, value } = e.target
-		e.preventDefault()
-		console.log(e, this.state.work)
-	}
+	const removeWorkSection = index => {
+		const values = [...workInfos];
+		values.splice(index, 1);
+		setWorkInfo(values);
+	};
 
-	removeSection(e) {		
-		e.preventDefault()
-		console.log('remove')
-	}
+	const addEduSection = e => {
+		setEducation([...educations, { college: '', study: '', years: '' }]);
+	};
 
-	render() {
-		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
-					<div>
+	const removeEduSection = index => {
+		const values = [...educations];
+		values.splice(index, 1);
+		setEducation(values);
+	};
+
+	return (
+		<div className="container">
+			<div className="form-container">
+				<form onSubmit={handleSubmit}>
+					<div className="personal-info">
 						<h3>Personal Info:</h3>
-							<label>
-								First name:
-								<input
-									type="text"
-									name="firstName"
-									placeholder="First name"
-									value={this.state.firstName}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Last name:
-								<input
-									type="text"
-									name="lastName"
-									placeholder="Last Name"
-									value={this.state.lastName}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Email:
-								<input
-									type="text"
-									name="email"
-									placeholder="Email@gmail.com"
-									value={this.state.email}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Phone number:
-								<input
-									type="text"
-									name="phone"
-									placeholder="1(123) 456-7890"
-									value={this.state.phone}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<hr />
+						<label>
+							First name:
+							<input
+								type="text"
+								name="firstName"
+								placeholder="First name"
+								value={personalInfo.firstName}
+								onChange={event => handlePersonalInfo(event)}
+							/>
+						</label>
+						<br />
+						<label>
+							Last name:
+							<input
+								type="text"
+								name="lastName"
+								placeholder="Last Name"
+								value={personalInfo.lastName}
+								onChange={event => handlePersonalInfo(event)}
+							/>
+						</label>
+						<br />
+						<label>
+							Email:
+							<input
+								type="text"
+								name="email"
+								placeholder="Email@gmail.com"
+								value={personalInfo.email}
+								onChange={event => handlePersonalInfo(event)}
+							/>
+						</label>
+						<br />
+						<label>
+							Phone number:
+							<input
+								type="text"
+								name="phone"
+								placeholder="1(123) 456-7890"
+								value={personalInfo.phone}
+								onChange={event => handlePersonalInfo(event)}
+							/>
+						</label>
+						<hr />
 					</div>
-					<div>
+					<div className="work-exp">
 						<h3>Work Experience:</h3>
-							<div>
+						{workInfos.map((workInfo, index) => (
+							<div key={index}>
 								<label>
-								Company name:
-								<input 
-									type="text"
-									name='companyName'
-									placeholder="Company Name"
-									value={this.state.companyName}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Position name:
-								<input 
-									type="text"
-									name='position'
-									placeholder="Position Name"
-									value={this.state.position}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Job tasks:
-								<input 
-									type="text"
-									name='jobTasks'
-									placeholder="Company Name"
-									value={this.state.jobTasks}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
+									Company name:
+									<input
+										type="text"
+										name="companyName"
+										placeholder="Company Name"
+										value={workInfo.companyName}
+										onChange={event => handleWorkInfo(event, index)}
+									/>
+								</label>
+								<br />
+								<label>
+									Position name:
+									<input
+										type="text"
+										name="position"
+										placeholder="Position Name"
+										value={workInfo.position}
+										onChange={event => handleWorkInfo(event, index)}
+									/>
+								</label>
+								<br />
+								<label>
+									Job tasks:
+									<input
+										type="text"
+										name="jobTasks"
+										placeholder="Company Name"
+										value={workInfo.jobTasks}
+										onChange={event => handleWorkInfo(event, index)}
+									/>
+								</label>
+								<br />
 								<label>
 									Start and end date:
 									<input
 										type="text"
 										name="date"
 										placeholder="Aug 2018 - Current"
-										value={this.state.date}
-										onChange={this.handleInfo}
+										value={workInfo.date}
+										onChange={event => handleWorkInfo(event, index)}
 									/>
-							</label>
-						</div>
-						<button onClick={this.addSection}>Add</button>
-						{this.state.work.length > 1 ? 
-							<button onClick={this.removeSection}>Remove</button>
-						: null}
+								</label>
+								{index === 0 ? null : (
+									<button onClick={() => removeWorkSection(index)}>
+										Remove
+									</button>
+								)}
+								<hr />
+							</div>
+						))}
+						<button onClick={() => addWorkSection()}>Add</button>
 					</div>
-						<hr />
-					<div>	
+					<br />
+					<div className="education">
 						<h3>Education:</h3>
-							<label>
-								College name:
-								<input 
-									type='text'
-									name='college'
-									placeholder='College name'
-									value={this.state.college}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Subjects studied:
-								<input 
-									type='text'
-									name='study'
-									placeholder='Subjects studied'
-									value={this.state.study}
-									onChange={this.handleInfo}
-								/>
-							</label>
-							<br />
-							<label>
-								Years studied:
-								<input 
-									type='number'
-									name='years'
-									placeholder='Number of years'
-									value={this.state.years}
-									onChange={this.handleInfo}
-								/>
-							</label>
+						{educations.map((edu, index) => (
+							<div key={index}>
+								<label>
+									College name:
+									<input
+										type="text"
+										name="college"
+										placeholder="College name"
+										value={edu.college}
+										onChange={event => handleEduInfo(event, index)}
+									/>
+								</label>
+								<br />
+								<label>
+									Subjects studied:
+									<input
+										type="text"
+										name="study"
+										placeholder="Subjects studied"
+										value={edu.study}
+										onChange={event => handleEduInfo(event, index)}
+									/>
+								</label>
+								<br />
+								<label>
+									Years studied:
+									<input
+										type="number"
+										name="years"
+										placeholder="Number of years"
+										value={edu.years}
+										onChange={event => handleEduInfo(event, index)}
+									/>
+								</label>
+								{index === 0 ? null : (
+									<button onClick={() => removeEduSection(index)}>
+										Remove
+									</button>
+								)}
+								<hr />
+							</div>
+						))}
+						<hr />
+						<button onClick={() => addEduSection()}>Add</button>
 					</div>
+					<hr />
 					<button type="submit">Generate</button>
 				</form>
-
-				<Personal 
-					firstName={this.state.isSubmitted ? this.state.firstName : 'Bob'}
-					lastName={this.state.isSubmitted ? this.state.lastName : 'Jobseeker'}
-					email={this.state.isSubmitted ? this.state.email : 'email@email.com'}
-					phone={this.state.isSubmitted ? this.state.phone : '1(702)123-4567'}
-				/>
-
-				<WorkExp 
-					companyName={this.state.isSubmitted ? this.state.companyName : 'McCompany'}
-					position={this.state.isSubmitted ? this.state.position : 'Excellent worker'}
-					jobTasks={this.state.isSubmitted ? this.state.jobTasks : 'Being amazing'}
-					date={this.state.isSubmitted ? this.state.date : 'Aug 2018 - Current'}
-				/>
-
-				<Education 	
-					college={this.state.isSubmitted ? this.state.college: 'University of the Web'}
-					study={this.state.isSubmitted ? this.state.study : 'Computer Science'}
-					years={this.state.isSubmitted ? this.state.years : '6'}
-				/>
-
 			</div>
-		);
-	}
+
+			<div className="output-field">
+				<Personal
+					firstName={personalInfo.firstName ? personalInfo.firstName : 'Bob'}
+					lastName={personalInfo.lastName ? personalInfo.lastName : 'Jobseeker'}
+					email={personalInfo.email ? personalInfo.email : 'email@email.com'}
+					phone={personalInfo.phone ? personalInfo.phone : '1(702)123-4567'}
+				/>
+				<h2>Work Experience:</h2>
+				{workInfos.map(work => (
+					<WorkExp
+						companyName={work.companyName ? work.companyName : 'McCompany'}
+						position={work.position ? work.position : 'Excellent worker'}
+						jobTasks={work.jobTasks ? work.jobTasks : 'Being amazing'}
+						date={work.date ? work.date : 'Aug 2018 - Current'}
+					/>
+				))}
+				<h2>Education:</h2>
+				{educations.map(edu => (
+					<Education
+						college={edu.college ? edu.college : 'University of the Web'}
+						study={edu.study ? edu.study : 'Computer Science'}
+						years={edu.years ? edu.years : '6'}
+					/>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default Main;

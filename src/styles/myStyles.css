@@ -1,0 +1,23 @@
+.container {
+	background-color: blue;
+}
+
+.form-container {
+	background-color: teal;
+}
+
+.personal-info {
+	color: purple;
+}
+
+.work-exp {
+	color: yellow;
+}
+
+.education {
+	color: green;
+}
+
+.output-field {
+	color: red;
+}
